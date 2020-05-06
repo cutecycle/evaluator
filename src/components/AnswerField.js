@@ -61,7 +61,7 @@ class AnswerField extends React.Component {
 
             <TextField onChange={this.handleChange} variant="outlined" name="targetUnit" helperText="Unit to Convert To"></TextField>
 
-            <motion.div style={{display : 'inline-block'}}  animate={{ rotate: 360 * !this.state.answerStatus }}>
+            <motion.div style={{ display: 'inline-block' }} animate={{ rotate: 360 * !this.state.answerStatus }}>
                 <TextField error={!this.state.answerStatus} onChange={this.handleChange} variant="outlined" id="studentResponse" name="studentResponse" helperText="Student Response"></TextField>
             </motion.div>
 
