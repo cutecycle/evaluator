@@ -3,10 +3,12 @@ import React from 'react';
 import { Button, Paper, TextField, Card, InputAdornment } from '@material-ui/core';
 // const anime = require('animejs');
 import anime from 'animejs/lib/anime.es.js';
+import Qty from 'js-quantities';
+const quantities = require('js-quantities');
 
 const fToC = 5;
 const fToK = 5;
-const xtox = function(fromUnit, toUnit, value) {
+const xtox = function (fromUnit, toUnit, value) {
     //TODO: i know there's a more efficient way of doing this...
     // const values = {
     //     fahrenheitcelsius: function (value) { 
@@ -16,13 +18,20 @@ const xtox = function(fromUnit, toUnit, value) {
 
     //     fahrenheitkelvin: f,
     //     kelvinfahrenheit: f,
-        
+
     //     celsiuskelvin,
     //     kelvincelsius,
 
-    // }
+    // } 
+    try {
+    const quantity = new Qty(value + ` ${fromUnit}`);
+    return Qty.to(toUnit);
     
-    
+
+    } catch(e) { 
+        return e
+    }
+
     // return entry;
 
 }
@@ -30,20 +39,20 @@ const xtox = function(fromUnit, toUnit, value) {
 class ResultField extends React.Component {
     constructor(props) {
         super(props);
-
     }
     render() {
-        return <Button>{this.props.value}</Button>
+        return <div>{this.props.value}</div>
     }
 }
 
 class AnswerField extends React.Component {
     constructor(props) {
         super(props);
-        this.state = { value: '' };
+        this.state = {
+        };
         this.handleChange = this.handleChange.bind(this);
         this.answerAnimator = anime({
-            targets: 'ResultField',
+            targets: '#studentResponse',
             rotate: 360,
             autoplay: false
         });
@@ -52,26 +61,42 @@ class AnswerField extends React.Component {
     }
 
     handleChange(event) {
-        this.setState({ value: event.target.value });
+        this.setState({
+            ...this.state,
+            [event.target.name]: event.target.value,
+        },
+            this.setState({
+                ...this.state,
+                correctAnswer: xtox(this.state.inputUnit, this.state.targetUnit, this.state.inputValue
+
+                )
+            })
+        );
+        console.log(event.target.name)
+        console.log(event.target.value)
 
         // this.answerAnimator.restart();
-        this.answerAnimator.play();
-        xtox("fahrenheit","celsius",3)
+        // this.answerAnimator.play();
+        anime({
+            targets: document.querySelector("#studentResponse"),
+            rotate: 360
+        });
 
+        // xtox("fahrenheit","celsius",3)
+        // result = xtox()
     }
-
 
     render() {
         return <div>
-            <TextField variant="outlined" name="value" helperText="Numerical Value"></TextField>
-            <TextField variant="outlined" name="inputUnit" helperText="Unit of Measurement"></TextField>
-            <TextField variant="outlined" name="targetUnit" helperText="Unit to Convert To"></TextField>
-            <TextField variant="outlined" name="studentResponse" helperText="Student Response"></TextField>
+            <TextField value={this.inputValue} onChange={this.handleChange} variant="outlined" name="inputValue" helperText="Numerical Value"></TextField>
+            <TextField onChange={this.handleChange} variant="outlined" name="inputUnit" helperText="Unit of Measurement"></TextField>
+            <TextField onChange={this.handleChange} variant="outlined" name="targetUnit" helperText="Unit to Convert To"></TextField>
+            <TextField onChange={this.handleChange} variant="outlined" id="studentResponse" name="studentResponse" helperText="Student Response"></TextField>
 
-            <TextField multiline onChange={this.handleChange} >
+            {/* <TextField multiline onChange={this.handleChange} > */}
 
-                <InputAdornment></InputAdornment></TextField>
-            <ResultField value={this.state.value}>asdfasdfasdf</ResultField>
+            {/* <InputAdornment></InputAdornment></TextField> */}
+            <div>{this.props.value}</div>
         </div>
     }
 
