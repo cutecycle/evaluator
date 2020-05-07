@@ -9,10 +9,17 @@ const { round, truncate } = require('../functions/round.js');
 
 const checkAnswer = function (studentAnswer, correctAnswer) {
     try {
-        console.log(Qty(studentAnswer));
-        console.log(Qty(correctAnswer).format(round(2)));
-        return Qty(studentAnswer).eq(Qty(correctAnswer).format(round(1)));
+
+        let studentRounded = Qty(
+            Qty(studentAnswer).format(round(1))
+        )
+        let correctRounded = Qty(
+            Qty(correctAnswer).format(round(1))
+        )
+        debugger;
+        return studentRounded.eq(correctRounded);
     } catch (e) {
+
         return 0;
     }
 }
@@ -22,7 +29,7 @@ const xtox = function (fromUnit, toUnit, value) {
         const quantity = new Qty(`${value} ${humanize(fromUnit)}`);
         return quantity.to(humanize(toUnit)).format(truncate(4));
     } catch (e) {
-        console.log(e)
+
         return "invalid"
     }
 }
