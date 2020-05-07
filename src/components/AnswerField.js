@@ -11,7 +11,7 @@ const checkAnswer = function (studentAnswer, correctAnswer) {
     try {
         console.log(Qty(studentAnswer));
         console.log(Qty(correctAnswer).format(round(2)));
-        return Qty(studentAnswer).eq(Qty(correctAnswer).format(round(1)));
+        return Qty(studentAnswer).round(1).eq(Qty(correctAnswer).format(round(1)));
     } catch (e) {
         return 0;
     }
