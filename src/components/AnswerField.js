@@ -19,7 +19,7 @@ const checkAnswer = function (studentAnswer, correctAnswer) {
         debugger;
         return studentRounded.eq(correctRounded);
     } catch (e) {
-        console.log(e)
+
         return 0;
     }
 }
@@ -29,7 +29,7 @@ const xtox = function (fromUnit, toUnit, value) {
         const quantity = new Qty(`${value} ${humanize(fromUnit)}`);
         return quantity.to(humanize(toUnit)).format(truncate(4));
     } catch (e) {
-        console.log(e)
+
         return "invalid"
     }
 }
