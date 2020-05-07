@@ -1,13 +1,12 @@
 
 import React from 'react';
-import { Button, Paper, TextField, Card, InputAdornment } from '@material-ui/core';
-// const anime = require('animejs');
-import anime from 'animejs/lib/anime.es.js';
-// import Qty from 'js-quantities';
-const Qty = require('js-quantities');
+import { TextField } from '@material-ui/core';
 
-const fToC = 5;
-const fToK = 5;
+import { motion } from 'framer-motion';
+const Qty = require('js-quantities');
+const { humanize } = require('../functions/humanize.js');
+const { round } = require('../functions/round.js');
+
 const checkAnswer = function (studentAnswer, correctAnswer) {
     try {
         return Qty(studentAnswer).eq(Qty(correctAnswer));
@@ -15,35 +14,14 @@ const checkAnswer = function (studentAnswer, correctAnswer) {
         return 0;
     }
 }
-const humanize = function (value) {
-    let output = value;
-    output = (value == "fahrenheit") ? "tempF" : value;
-    output = (value == "celsius") ? "tempC" : value;
-    output = (value == "kelvin") ? "tempK" : value;
-    return value;
 
-}
-const round = function (decimals) {
-    return function (scalar, units) {
-        var pow = Math.pow(10, decimals);
-        return `${scalar.toFixed(2)} ${units}`
-    }
-}
 const xtox = function (fromUnit, toUnit, value) {
     try {
         const quantity = new Qty(`${value} ${humanize(fromUnit)}`);
         return quantity.to(humanize(toUnit)).format(round(2));
     } catch (e) {
+        console.log(e)
         return "invalid"
-    }
-}
-
-class ResultField extends React.Component {
-    constructor(props) {
-        super(props);
-    }
-    render() {
-        return <div>{this.props.value}</div>
     }
 }
 
@@ -54,13 +32,6 @@ class AnswerField extends React.Component {
             'correctAnswer': ''
         };
         this.handleChange = this.handleChange.bind(this);
-        this.answerAnimator = anime({
-            targets: '#studentResponse',
-            rotate: 360,
-            autoplay: false
-        });
-        console.log(this.answerAnimator)
-
     }
 
     handleChange(event) {
@@ -78,27 +49,27 @@ class AnswerField extends React.Component {
 
             }
         );
-        console.log(event.target.name)
-        console.log(event.target.value)
-
-        anime({
-            targets: document.querySelector("#studentResponse"),
-            rotate: 360
-        });
-
     }
 
     render() {
-        return <div>
+        return <motion.div animate >
+
+
             <TextField value={this.inputValue} onChange={this.handleChange} variant="outlined" name="inputValue" helperText="Numerical Value"></TextField>
+
             <TextField onChange={this.handleChange} variant="outlined" name="inputUnit" helperText="Unit of Measurement"></TextField>
+
             <TextField onChange={this.handleChange} variant="outlined" name="targetUnit" helperText="Unit to Convert To"></TextField>
-            <TextField error={!this.state.answerStatus} onChange={this.handleChange} variant="outlined" id="studentResponse" name="studentResponse" helperText="Student Response"></TextField>
+
+            <motion.div style={{ display: 'inline-block' }} animate={{ rotate: 360 * !this.state.answerStatus }}>
+                <TextField error={!this.state.answerStatus} onChange={this.handleChange} variant="outlined" id="studentResponse" name="studentResponse" helperText="Student Response"></TextField>
+            </motion.div>
+
 
             <TextField variant="outlined" helperText="Correct Answer" value={this.state.correctAnswer} />
 
             {/* <InputAdornment></InputAdornment></TextField> */}
-        </div>
+        </motion.div>
     }
 
 }
