@@ -5,6 +5,7 @@ This project was bootstrapped with [Create React App](https://github.com/faceboo
 * Feature branch deployments for AWS Amplify
 * optimize bundle dependencies
 * humanize cubic units
+* unit testing for helper functions
 
 ## Available Scripts
 
