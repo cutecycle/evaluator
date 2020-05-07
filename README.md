@@ -1,5 +1,11 @@
 This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
 
+# Todo:
+* Green dialog box for correct answer
+* Feature branch deployments for AWS Amplify
+* optimize bundle dependencies
+* humanize cubic units
+
 ## Available Scripts
 
 In the project directory, you can run:
