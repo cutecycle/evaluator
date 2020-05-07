@@ -3,6 +3,7 @@ const humanize = function (value) {
     output = (value === "fahrenheit") ? "tempF" : value;
     output = (value === "celsius") ? "tempC" : value;
     output = (value === "kelvin") ? "tempK" : value;
+    output = (value === "rankine") ? "tempR" : value;
     return output;
 
 }

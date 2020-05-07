@@ -5,11 +5,13 @@ import { TextField } from '@material-ui/core';
 import { motion } from 'framer-motion';
 const Qty = require('js-quantities');
 const { humanize } = require('../functions/humanize.js');
-const { round } = require('../functions/round.js');
+const { round, truncate } = require('../functions/round.js');
 
 const checkAnswer = function (studentAnswer, correctAnswer) {
     try {
-        return Qty(studentAnswer).eq(Qty(correctAnswer));
+        console.log(Qty(studentAnswer));
+        console.log(Qty(correctAnswer).format(round(2)));
+        return Qty(studentAnswer).eq(Qty(correctAnswer).format(round(1)));
     } catch (e) {
         return 0;
     }
@@ -18,7 +20,7 @@ const checkAnswer = function (studentAnswer, correctAnswer) {
 const xtox = function (fromUnit, toUnit, value) {
     try {
         const quantity = new Qty(`${value} ${humanize(fromUnit)}`);
-        return quantity.to(humanize(toUnit)).format(round(2));
+        return quantity.to(humanize(toUnit)).format(truncate(4));
     } catch (e) {
         console.log(e)
         return "invalid"
@@ -66,7 +68,7 @@ class AnswerField extends React.Component {
             </motion.div>
 
 
-            <TextField variant="outlined" helperText="Correct Answer" value={this.state.correctAnswer} />
+            <TextField variant="outlined" helperText="Authoritative Answer" value={this.state.correctAnswer} />
 
             {/* <InputAdornment></InputAdornment></TextField> */}
         </motion.div>
