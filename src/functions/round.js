@@ -1,7 +1,7 @@
 
 const round = function (decimals) {
     return function (scalar, units) {
-        return `${Math.round(scalar*(10*decimals)) / (10*decimals)} ${units}`
+        return `${Math.round(scalar*(Math.pow(10,decimals))) / Math.pow(10 , decimals)} ${units}`
     }
 }
 
