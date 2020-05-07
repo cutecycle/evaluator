@@ -9,7 +9,7 @@ const { round, truncate } = require('../functions/round.js');
 
 const checkAnswer = function (studentAnswer, correctAnswer) {
     try {
-        
+
         let studentRounded = Qty(
             Qty(studentAnswer).format(round(1))
         )
