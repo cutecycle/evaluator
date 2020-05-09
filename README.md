@@ -1,5 +1,13 @@
 This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
 
+# Continuous integration
+Master is available at https://evaluator.girlhours.info. 
+
+Pushes to `development` and `staging` will be reflected respectively at 
+
+development: https://development.d34haz6hovi656.amplifyapp.com/
+staging: https://staging.d34haz6hovi656.amplifyapp.com/ 
+
 # Todo:
 * Green dialog box for correct answer
 * Feature branch deployments for AWS Amplify
