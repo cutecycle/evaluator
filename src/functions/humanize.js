@@ -1,5 +1,6 @@
 const humanize = function (value) {
-    let output = value;
+    let output = value.toLowerCase();
+    
     output = (value === "fahrenheit") ? "tempF" : output;
     output = (value === "celsius") ? "tempC" : output;
     output = (value === "kelvin") ? "tempK" : output;
